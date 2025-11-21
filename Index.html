@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Referrer Info Display</title>
+</head>
+<body>
+
+<h2>Referrer & Tracking Information</h2>
+
+<div id="info">Loading...</div>
+
+<script>
+function getQueryParams() {
+    const params = {};
+    const queryString = window.location.search.substring(1);
+    const queries = queryString.split("&");
+    for (let i = 0; i < queries.length; i++) {
+        const pair = queries[i].split("=");
+        params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
+    }
+    return params;
+}
+
+function displayInfo() {
+    const referrer = document.referrer || "No Referrer Found (Browser blocked or direct visit)";
+    const queryParams = getQueryParams();
+    const userAgent = navigator.userAgent;
+    const fullURL = window.location.href;
+
+    let html = "";
+
+    html += "<p><b>Referrer:</b> " + referrer + "</p>";
+    html += "<p><b>Full URL:</b> " + fullURL + "</p>";
+    html += "<p><b>User Agent:</b> " + userAgent + "</p>";
+
+    html += "<h3>Query / UTM / Token Parameters</h3>";
+    if (Object.keys(queryParams).length === 0) {
+        html += "<p>No Query Parameters Found</p>";
+    } else {
+        html += "<ul>";
+        for (const key in queryParams) {
+            html += "<li><b>" + key + ":</b> " + queryParams[key] + "</li>";
+        }
+        html += "</ul>";
+    }
+
+    document.getElementById("info").innerHTML = html;
+}
+
+displayInfo();
+</script>
+
+</body>
+</html>
