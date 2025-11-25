@@ -10,10 +10,7 @@
 <script>
 function displayInfo() {
     const referrer = document.referrer || "No Referrer Found (Browser blocked or direct visit)";
-
-    let html = "";
-
-    html += "<p><b>Referrer:</b> " + referrer + "</p>";\
+    let html ="<p><b>Referrer:</b> " + referrer + "</p>";
     document.getElementById("info").innerHTML = html;
 }
 displayInfo();
